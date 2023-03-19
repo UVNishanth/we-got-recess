@@ -1,5 +1,5 @@
 syntax = "proto3";
-package edu.zooleader;
+package edu.lunchbreaker;
 service ZooLunch {
   // request an audit of the last or current lunch situation
   rpc goingToLunch(GoingToLunchRequest) returns (GoingToLunchResponse) {}

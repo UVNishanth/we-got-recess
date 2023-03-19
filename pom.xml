@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
-        <assignment>zooleader</assignment>
+        <assignment>lunchbreak-system</assignment>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <protobuf.version>3.21.1</protobuf.version>
         <protoc.version>3.21.1</protoc.version>
@@ -16,7 +16,7 @@
 
     <!-- Make sure the course number is correct -->
     <groupId>edu</groupId>
-    <artifactId>zooleader</artifactId>
+    <artifactId>lunchbreaker</artifactId>
     <packaging>jar</packaging>
     <version>1.0</version>
     <name>${project.artifactId}</name>
@@ -168,7 +168,7 @@
                         <configuration>
                             <classifier>spring-boot</classifier>
                             <mainClass>
-                                ${project.groupId}.${project.artifactId}.edu.zooleader.Main
+                                ${project.groupId}.${project.artifactId}.edu.lunchbreaker.Main
                             </mainClass>
                         </configuration>
                     </execution>

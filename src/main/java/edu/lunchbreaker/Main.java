@@ -1,7 +1,8 @@
-package edu.zooleader;
+package edu.lunchbreaker;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
+import edu.lunchbreaker.ZooLunchGrpc;
 import io.grpc.*;
 import io.grpc.stub.StreamObserver;
 import org.apache.zookeeper.*;
@@ -504,7 +505,7 @@ public class Main {
             }
 
             @Override
-            public void goingToLunch(Grpc.GoingToLunchRequest request, StreamObserver<Grpc.GoingToLunchResponse> responseObserver) {
+            public void goingToLunch(Grpc.GoingToLunchRequest request, StreamObserver<edu.lunchbreaker.Grpc.GoingToLunchResponse> responseObserver) {
 
                 // to get latest lunch id
                 ArrayList<Long> attendedLunches = new ArrayList<Long>(myLunchHistory.keySet());
@@ -522,20 +523,20 @@ public class Main {
                     restaurant = latestLunchInfo.get("restaurant");
                     attendees = Arrays.asList(latestLunchInfo.get("attendees").split(","));
                 }
-                responseObserver.onNext(Grpc.GoingToLunchResponse.newBuilder().setRc(rc).setRestaurant(restaurant).addAllAttendees(attendees).build());
+                responseObserver.onNext(edu.lunchbreaker.Grpc.GoingToLunchResponse.newBuilder().setRc(rc).setRestaurant(restaurant).addAllAttendees(attendees).build());
                 responseObserver.onCompleted();
             }
 
             @Override
-            public void lunchesAttended(Grpc.LunchesAttendedRequest request, StreamObserver<Grpc.LunchesAttendedResponse> responseObserver) {
+            public void lunchesAttended(edu.lunchbreaker.Grpc.LunchesAttendedRequest request, StreamObserver<edu.lunchbreaker.Grpc.LunchesAttendedResponse> responseObserver) {
                 ArrayList<Long> attendedLunches = new ArrayList<Long>(myLunchHistory.keySet());
-                responseObserver.onNext(Grpc.LunchesAttendedResponse.newBuilder().addAllZxids(attendedLunches).build());
+                responseObserver.onNext(edu.lunchbreaker.Grpc.LunchesAttendedResponse.newBuilder().addAllZxids(attendedLunches).build());
                 responseObserver.onCompleted();
 
             }
 
             @Override
-            public void getLunch(Grpc.GetLunchRequest request, StreamObserver<Grpc.GetLunchResponse> responseObserver) {
+            public void getLunch(edu.lunchbreaker.Grpc.GetLunchRequest request, StreamObserver<edu.lunchbreaker.Grpc.GetLunchResponse> responseObserver) {
 
                 long zxid = request.getZxid();
 
@@ -555,23 +556,23 @@ public class Main {
                         attendees = Arrays.asList(lunchInfo.get("attendees").split(","));
                     }
                 }
-                responseObserver.onNext(Grpc.GetLunchResponse.newBuilder().setRc(rc).setLeader(leader).setRestaurant(restaurant).addAllAttendees(attendees).build());
+                responseObserver.onNext(edu.lunchbreaker.Grpc.GetLunchResponse.newBuilder().setRc(rc).setLeader(leader).setRestaurant(restaurant).addAllAttendees(attendees).build());
                 responseObserver.onCompleted();
 
 
             }
 
             @Override
-            public void skipLunch(Grpc.SkipRequest request, StreamObserver<Grpc.SkipResponse> responseObserver) {
-                responseObserver.onNext(Grpc.SkipResponse.newBuilder().build());
+            public void skipLunch(edu.lunchbreaker.Grpc.SkipRequest request, StreamObserver<edu.lunchbreaker.Grpc.SkipResponse> responseObserver) {
+                responseObserver.onNext(edu.lunchbreaker.Grpc.SkipResponse.newBuilder().build());
                 responseObserver.onCompleted();
                 skipNextLunch = true;
 
             }
 
             @Override
-            public void exitZoo(Grpc.ExitRequest request, StreamObserver<Grpc.ExitResponse> responseObserver) {
-                responseObserver.onNext(Grpc.ExitResponse.newBuilder().build());
+            public void exitZoo(edu.lunchbreaker.Grpc.ExitRequest request, StreamObserver<edu.lunchbreaker.Grpc.ExitResponse> responseObserver) {
+                responseObserver.onNext(edu.lunchbreaker.Grpc.ExitResponse.newBuilder().build());
                 responseObserver.onCompleted();
                 System.out.println("Exit request from " + REMOTE_ADDR.get());
                 System.exit(0);
