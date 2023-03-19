@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
-        <assignment>zoo-leader</assignment>
+        <assignment>zooleader</assignment>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <protobuf.version>3.21.1</protobuf.version>
         <protoc.version>3.21.1</protoc.version>
@@ -15,7 +15,7 @@
     </properties>
 
     <!-- Make sure the course number is correct -->
-    <groupId>edu.sjsu.cs249</groupId>
+    <groupId>edu</groupId>
     <artifactId>zooleader</artifactId>
     <packaging>jar</packaging>
     <version>1.0</version>
@@ -168,7 +168,7 @@
                         <configuration>
                             <classifier>spring-boot</classifier>
                             <mainClass>
-                                ${project.groupId}.${project.artifactId}.Main
+                                ${project.groupId}.${project.artifactId}.edu.zooleader.Main
                             </mainClass>
                         </configuration>
                     </execution>
