@@ -1,0 +1,45 @@
+syntax = "proto3";
+package edu.sjsu.cs249.zooleader;
+service ZooLunch {
+  // request an audit of the last or current lunch situation
+  rpc goingToLunch(GoingToLunchRequest) returns (GoingToLunchResponse) {}
+  // request an audit of the last or current lunch situation
+  rpc lunchesAttended(LunchesAttendedRequest) returns (LunchesAttendedResponse) {}
+  // request an audit of the last or current lunch situation
+  rpc getLunch(GetLunchRequest) returns (GetLunchResponse) {}
+  // skip the next readyforlunch announcement
+  rpc skipLunch(SkipRequest) returns (SkipResponse) {}
+  // exit your process right away
+  rpc exitZoo(ExitRequest) returns (ExitResponse) {}
+}
+
+message GoingToLunchRequest {}
+// the Audit Response is always about the current lunch or last lunch if no lunch is getting ready
+message GoingToLunchResponse {
+  int32 rc = 1; // 0 - if current lunch leader, 1 - if not current lunch leader
+  // the following are set only if rc == 0
+  string restaurant = 2; // the name of the restaurant
+  string leader = 3; // the zk-<name> of the leader
+  repeated string attendees = 4; // the zk-<name> of the attendees
+}
+
+message LunchesAttendedRequest {}
+message LunchesAttendedResponse {
+  repeated int64 zxids = 1; // zxid of the /lunchtime of lunches attended
+}
+
+message GetLunchRequest {
+  int64 zxid = 1; // zxid of the /lunchtime of lunch to query
+}
+message GetLunchResponse {
+  int32 rc = 1; // 0 - if was lunch leader, 1 - if attended only, 2 - if didn't attend
+  string leader = 2; // the zk-<name> of the leader if rc == 0 or 1
+  // the following are set only if rc == 0
+  string restaurant = 3; // the name of the restaurant
+  repeated string attendees = 4; // the zk-<name> of the attendees
+}
+
+message SkipRequest {}
+message SkipResponse {}
+message ExitRequest {}
+message ExitResponse {}
