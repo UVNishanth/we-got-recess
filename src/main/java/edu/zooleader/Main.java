@@ -148,7 +148,7 @@ public class Main {
                     checkLunchtime();
                 } else if (e.getType() == Watcher.Event.EventType.NodeDeleted) {
                     System.out.println("/lunchtime deleted ");
-                    String path = lunchpath + "/comrade-" + name + "@" + serverPort;
+                    String path = lunchpath + "/krelboyne-" + name + "@" + serverPort;
                     isItLunchtimeAlready = false;
                     try {
                         zk.delete(path, -1);
@@ -267,7 +267,7 @@ public class Main {
                     case OK -> {
                         System.out.println("Leader (aka me) got info of my lunchmates");
                         // As lunch children will also have employees znode, we need to filter that out
-                        children.removeIf(znode -> !znode.startsWith("comrade-"));
+                        children.removeIf(znode -> !znode.startsWith("krelboyne-"));
                         lunchmates = children;
                         lunchmatesCount = lunchmates.size();
                         waitForNextLeaderRun = lunchmates.size();
@@ -367,7 +367,7 @@ public class Main {
             }
 
             void addMeCozMNew() {
-                zk.create(lunchpath + "/employee/comrade-" + name + "@" + serverPort, serverInfo.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL, newEmployeeCallBack, null);
+                zk.create(lunchpath + "/employee/krelboyne-" + name + "@" + serverPort, serverInfo.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL, newEmployeeCallBack, null);
 
             }
 
@@ -390,7 +390,7 @@ public class Main {
 
 
             void addMeToLunchRoster() {
-                zk.create(lunchpath + "/comrade-" + name + "@" + serverPort, serverInfo.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL, addToLunchRosterCallback, null);
+                zk.create(lunchpath + "/krelboyne-" + name + "@" + serverPort, serverInfo.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL, addToLunchRosterCallback, null);
             }
 
             void getLunchtimeInfo() {
